@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+
+# docker run --rm --name lgtm-app -p 4567:4567 -v lgtm_app_data:/app/docker-lgtm-app/public/images --link mysql:mysql lgtm:1.0.0
+
+  lgtm-app:
+    image: lgtm:1.0.0 # TODO:
+    container_name: lgtm-app
+    ports:
+      - 4567:4567
+    volumes:
+      - lgtm_app_data:/app/docker-lgtm-app/public/images
+    links:
+      - db
+    environment:
+      DB_HOST: db
+
+# docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=dev -v lgtm_db_data:/var/lib/mysql -d mysql:5.7
+
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: dev
+    volumes:
+      - lgtm_db_data:/var/lib/mysql
+
+volumes:
+  lgtm_app_data:
+  lgtm_db_data:
+
