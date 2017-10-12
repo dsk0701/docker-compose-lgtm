@@ -3,7 +3,7 @@ version: '2'
 services:
 
   nginx-proxy:
-    image: jwilder/nginx-proxy
+    image: dsk0701/nginx-proxy
     ports:
       - 80:80
     volumes:
