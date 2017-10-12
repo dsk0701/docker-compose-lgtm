@@ -2,6 +2,13 @@ version: '2'
 
 services:
 
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
 # docker run --rm --name lgtm-app -p 4567:4567 -v lgtm_app_data:/app/docker-lgtm-app/public/images --link mysql:mysql lgtm:1.0.0
 
   lgtm-app:
