@@ -24,7 +24,7 @@ services:
       DB_HOST: db
       DB_PORT: 3306
       DB_BOOT_WAIT_TIMEOUT: 60s
-      VIRTUAL_HOST: lgtm.mixin.tech
+      VIRTUAL_HOST: lgtm.mixin.tokyo
 
 # docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=dev -v lgtm_db_data:/var/lib/mysql -d mysql:5.7
 
