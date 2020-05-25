@@ -2,16 +2,20 @@ version: '2'
 
 services:
 
-  nginx-proxy:
-    image: dsk0701/nginx-proxy
+  https-portal:
+    image: steveltn/https-portal:1
     ports:
       - 80:80
+      - 443:443
+    links:
+      - lgtm-app
+    restart: always
     environment:
-      - ENABLE_IPV6=true
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
-# docker run --rm --name lgtm-app -p 4567:4567 -v lgtm_app_data:/app/docker-lgtm-app/public/images --link mysql:mysql lgtm:1.0.0
+      LISTEN_IPV6: 'true'
+      DOMAINS: 'lgtm.mixin.tokyo -> http://lgtm-app:4567'
+      STAGE: production # local, staging, or production
+      # DOMAINS: 'localhost.com -> http://lgtm-app:4567'
+      # STAGE: local
 
   lgtm-app:
     image: dsk0701/lgtm-app
@@ -26,7 +30,6 @@ services:
       DB_HOST: db
       DB_PORT: 3306
       DB_BOOT_WAIT_TIMEOUT: 60s
-      VIRTUAL_HOST: lgtm.mixin.tokyo
 
 # docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=dev -v lgtm_db_data:/var/lib/mysql -d mysql:5.7
 
